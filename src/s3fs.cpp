@@ -2250,7 +2250,7 @@ static int s3fs_statfs(const char* _path, struct statvfs* stbuf)
   // WTF8_ENCODE(path)
   // 256T
   stbuf->f_bsize  = 0X01000000;
-  stbuf->f_blocks = 0X10000000;
+  stbuf->f_blocks = 0X80000000;
   stbuf->f_bfree  = 0x10000000;
   stbuf->f_bavail = 0x10000000;
   stbuf->f_namemax = NAME_MAX;
