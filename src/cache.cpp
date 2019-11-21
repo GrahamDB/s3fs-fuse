@@ -590,7 +590,16 @@ bool convert_header_to_stat(const char* path, headers_t& meta, struct stat* pst,
   if(S_ISREG(pst->st_mode)){
     pst->st_blocks = get_blocks(pst->st_size);
   }
+#if FUSE_VERSION >= 29
+  /*
+   * The optimal I/O size can be set on a per-file basis. Setting st_blksize
+   * to zero will cause the kernel extension to fall back on the global I/O
+   * size which can be specified at mount-time (option iosize).
+   */
+  pst->st_blksize = 0;
+#else
   pst->st_blksize = 4096;
+#endif
 
   // mtime
   pst->st_mtime = get_mtime(meta);
